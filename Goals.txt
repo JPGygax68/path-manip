@@ -1,0 +1,24 @@
+Path.js: a JavaScript module for handling paths
+-----------------------------------------------
+
+Motivation
+----------
+
+Working with paths in JavaScript is somewhat less than fun. It's far from difficult, yet it lacks elegance and simplicity, and mistakes are easily made.
+
+In my opinion, working with paths should be done with the help of a specialized class, much like the boost C++ library does it (though I don't intend at this point to mimick their API).
+
+
+Brackets
+--------
+
+- Must work with Un*x and Windows-style paths (it must support Windows-style roots like "X:\", and support a toNative() method in Node)
+- Concatenation should handle "climbing" ("..") segments
+- It must support both CommonJS and AMD loading
+
+Approach
+--------
+
+- Subclass Array - gives the class abilities that should feel "natural"
+- Provide a toString() method to convert to string easily and naturally (for JS)
+- 

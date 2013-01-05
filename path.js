@@ -10,6 +10,10 @@ define( function() {
 
     function Path() {}
     
+    Path.prototype = new Array();
+    
+    Path.prototype.toString = function() { return ''; } // TODO
+    
     return Path;
 });
 

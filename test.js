@@ -1,4 +1,5 @@
 var should    = require('chai').should();
+var expect    = require('chai').expect;
 var requirejs = require('requirejs');
 var Path      = require('./path');
 
@@ -12,9 +13,11 @@ var Path      = require('./path');
 //requirejs(['./path'],
 //function (    Path  ) {
 
-    describe('Path constructor (without parameters)', function() {
-        var p = new Path();
-        p.should.equal('');
+    describe('#Construction', function() {
+        it('Path created by new without params should be comparable to the empty string', function() {
+            var p = new Path();
+            expect(p == '').to.be.ok;
+        });
     });
 
 //});

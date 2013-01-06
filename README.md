@@ -34,13 +34,13 @@ and for the browser (or any other AMD environment):
 Usage
 -----
 
-`Path` method
+- `Path`
 
-is the constructor function returned by the `require` mechanism (which means you could give it a different name, yet I suggest you go with `Path`).
+	is the constructor function returned by the `require` mechanism (which means you could give it a different name, yet I suggest you go with `Path`).
 
-You can use it with or without the "new" operator. It will work pretty much as you'd expect: it takes a single optional parameter, which if specified can be either a string, an array of strings, or another Path object.
+	You can use it with or without the "new" operator. It will work pretty much as you'd expect: it takes a single optional parameter, which if specified can be either a string, an array of strings, or another Path object.
 
-In fact, specifying a parameter in the constructor is equivalent to building the object empty, then calling `add` with that parameter.
+	In fact, specifying a parameter in the constructor is equivalent to building the object empty, then calling `add` with that parameter.
 
 - `add` method
 

@@ -54,6 +54,11 @@ var Path      = require('./path');
             p.add(['..', 'baz']);
             expect(p.toString()).to.be.equal('foo/baz');
         });
+        it('can take another path for argument', function() {
+            var p1 = Path('foo/bar'), p2 = Path('baz/bleep');
+            p1.add(p2);
+            expect(p1.toString()).to.be.equal('foo/bar/baz/bleep');
+        });
     });
     
     describe('#isBranch', function() {

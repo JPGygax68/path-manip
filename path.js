@@ -36,7 +36,10 @@ define( function() {
     }
     
     Path.prototype.add = function(path) {
-        if (path instanceof Array) {
+        if (path instanceof Path) {
+            this.add( path._segments );
+        }
+        else if (path instanceof Array) {
             path.forEach( function(seg, i) { 
                 if (seg === '') {
                     if (i === path.length-1) this.makeBranch();
@@ -48,7 +51,7 @@ define( function() {
         else if (typeof path === 'string') {
             if (path == '..') {
                 if (this._segments.length > 0) this._segments.pop();
-                else                           this._segments.push( '../' );
+                else                           this._segments.push('../');
             }
             else {
                 path = path.replace('\\', '/');

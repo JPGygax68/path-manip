@@ -8,11 +8,16 @@ if (typeof define !== 'function') var define = function() {
 
 define( function() {
 
-    function Path() {}
+    function Path(s) {
+        switch (typeof s) {
+        case 'undefined': this.segments = []; break;
+        case 'string'   : this.segments = s.split('/'); break;
+        }
+    }
     
     Path.prototype = new Array();
     
-    Path.prototype.toString = function() { return ''; } // TODO
+    Path.prototype.toString = function() { return this.segments.join('/'); }
     
     return Path;
 });

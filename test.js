@@ -13,10 +13,15 @@ var Path      = require('./path');
 //requirejs(['./path'],
 //function (    Path  ) {
 
-    describe('#Construction', function() {
-        it('Path created by new without params should be comparable to the empty string', function() {
+    describe('#constructor', function() {
+        it('called without params results in Path convertible to empty string', function() {
             var p = new Path();
             expect(p == '').to.be.ok;
+        });
+        it('called with non-special string argument results in Path converting back to that string', function() {
+            var s = 'foo/bar';
+            var p = new Path(s);
+            expect(p == s).to.be.ok;
         });
     });
 

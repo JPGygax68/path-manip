@@ -34,5 +34,23 @@ var Path      = require('./path');
         });
     });
 
+    describe('#add', function() {
+        it('called with a string adds a new segment to the path', function() {
+            var p = new Path('foo');
+            p.add('bar');
+            expect(p == 'foo/bar').to.be.ok;
+        });
+        it('called with a "climb" segment ("..") removes the last segment of the path', function() {
+            var p = new Path('foo/bar');
+            p.add('..');
+            expect(p == 'foo').to.be.ok;
+        });
+        it('can be called with an array of segments', function() {
+            var p = new Path('foo/bar');
+            p.add(['..', 'baz']);
+            expect(p == 'foo/baz').to.be.ok;
+        });
+    });
+    
 //});
 

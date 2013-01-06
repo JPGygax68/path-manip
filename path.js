@@ -25,7 +25,18 @@ define( function() {
     
     Path.prototype = new Array();
     
-    Path.prototype.toString = function() { return this.segments.join('/'); }
+    Path.prototype.toString = function()    { return this.segments.join('/'); }
+    
+    Path.prototype.add = function(seg) {
+        if (seg instanceof Array) {
+            seg.forEach( function(seg) { this.add(seg); }, this );
+        }
+        else if (seg == '..') {
+            if (this.segments.length > 0) this.segments.pop();
+            else                          this.segments.push( seg );
+        }
+        else this.segments.push(seg); 
+    }
     
     return Path;
 });

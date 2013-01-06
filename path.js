@@ -72,6 +72,11 @@ define( function() {
         }
     }
     
+    Path.prototype.up = function(levels) {
+        levels = levels || 1;
+        if (this.segments.length >= levels) this.segments.splice(this.segments.length - levels, levels);
+    }
+    
     return Path;
     
     //--------------

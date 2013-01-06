@@ -65,5 +65,18 @@ var Path      = require('./path');
         });
     });
     
+    describe('#up', function() {
+        it('removes the last segment of the path', function() {
+            var p = new Path('foo/bar');
+            p.up();
+            expect(p == 'foo/').to.be.true;
+        });
+        it('takes an optional argument with the number of levels to climb', function() {
+            var p = new Path('foo/bar/baz');
+            p.up(2);
+            expect(p == 'foo/').to.be.true;
+        });
+    });
+    
 //});
 

@@ -43,12 +43,25 @@ var Path      = require('./path');
         it('called with a "climb" segment ("..") removes the last segment of the path', function() {
             var p = new Path('foo/bar');
             p.add('..');
-            expect(p == 'foo').to.be.ok;
+            expect(p == 'foo/').to.be.ok;
         });
         it('can be called with an array of segments', function() {
             var p = new Path('foo/bar');
             p.add(['..', 'baz']);
             expect(p == 'foo/baz').to.be.ok;
+        });
+    });
+    
+    describe('#isBranch', function() {
+        it('detects slash in added segment and marks path as a branch', function() {
+            var p = new Path();
+            p.add('foo/');
+            expect(p.isBranch()).to.be.true;
+        });
+        it('automatically becomes true when a path gets truncated', function() {
+            var p = new Path('foo/bar');
+            p.add('..');
+            expect(p.isBranch()).to.be.true;
         });
     });
     

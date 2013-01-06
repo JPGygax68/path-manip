@@ -44,21 +44,21 @@ In fact, specifying a parameter in the constructor is equivalent to building the
 
 `add` method
 
-This is the workhorse of the class. It will accept the same types for its single parameter as the constructor does, except that the parameter is not optional here.
+:This is the workhorse of the class. It will accept the same types for its single parameter as the constructor does, except that the parameter is not optional here.
 
-There are a few special cases to consider:
+	There are a few special cases to consider:
 
-- `add`ing `..` (or '../') will have the same effect as calling `up(1)`, i.e. it will pop of the last segment of the path, unless said last segment is a also a climbing segment, in which case it will add the new climbing segment. 
+	- `add`ing `..` (or '../') will have the same effect as calling `up(1)`, i.e. it will pop of the last segment of the path, unless said last segment is a also a climbing segment, in which case it will add the new climbing segment. 
 
-	NOTE: a path ending in a climbing segment is always considered a branch.
+		NOTE: a path ending in a climbing segment is always considered a branch.
 
-- `add`ing a segment or path ending in a slash will make the resulting path a branch.
+	- `add`ing a segment or path ending in a slash will make the resulting path a branch.
 
-- `add`ing a segment *beginning* with a slash will make the path "absolute". This is only allowed on empty paths!
+	- `add`ing a segment *beginning* with a slash will make the path "absolute". This is only allowed on empty paths!
 
 `isBranch`, `isLeaf` methods
 
-	Return true when the path is a branch or a leaf, respectively. Note that these methods will always return either `true` or `false`, except if the path is empty, in which case both methods won't return anything.
+:Return true when the path is a branch or a leaf, respectively. Note that these methods will always return either `true` or `false`, except if the path is empty, in which case both methods won't return anything.
 
 `isAbsolute` method
 

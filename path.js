@@ -57,6 +57,7 @@ define( function() {
             }
         }
         else throw new TypeError('Path::add()');
+        return this;
     }
     
     Path.prototype.isBranch = function() { 
@@ -75,6 +76,7 @@ define( function() {
     Path.prototype.up = function(levels) {
         levels = levels || 1;
         if (this.segments.length >= levels) this.segments.splice(this.segments.length - levels, levels);
+        return this;
     }
     
     return Path;

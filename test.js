@@ -90,6 +90,14 @@ var Path      = require('./path');
         });
     });
     
+    describe('#isAbsolute', function() {
+        it('says whether or not the path starts with a slash (= is absolute)', function() {
+            var p = Path('/foo/bar');
+            expect(p.isAbsolute()).to.be.true;
+            expect(p.toString()).to.be.equal('/foo/bar');
+        });
+    });
+    
     describe('#up', function() {
         it('removes the last segment of the path', function() {
             var p = new Path('foo/bar');

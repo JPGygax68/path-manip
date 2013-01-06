@@ -11,11 +11,18 @@ if (typeof define !== 'function') var define = function() {
 define( function() {
 
     function Path(s) {
-        this._segments = [];
-        switch (typeof s) {
-        case 'undefined': break;
-        case 'string'   : this.add.call(this, s); break;
-        case 'object'   : fromObject.call(this, s); break;
+        if (!(this instanceof Path)) {
+            var instance = new Path();
+            Path.apply(instance, arguments);
+            return instance;
+        }
+        else {        
+            this._segments = [];
+            switch (typeof s) {
+            case 'undefined': break;
+            case 'string'   : this.add.call(this, s); break;
+            case 'object'   : fromObject.call(this, s); break;
+            }
         }
         
         function fromObject(obj) {
@@ -86,6 +93,8 @@ define( function() {
     Path.prototype.length = function() { return this._segments.length; }
     
     Path.prototype.at = function(i) { return this._segments[i]; }
+    
+    Path.prototype.forEach = function(callback) { this._segments.forEach( callback ); }
     
     Path.commonRoot = function(p1, p2) {
         if (typeof p1 === 'string') p1 = new Path(p1);

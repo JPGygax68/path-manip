@@ -32,6 +32,10 @@ var Path      = require('./path');
             var p = new Path(['foo', 'bar']);
             expect(p.toString()).to.be.equal('foo/bar');
         });
+        it('acts as a factory when called without the new operator', function() {
+            var p = Path('foo/bar');
+            expect(p.toString()).to.be.equal('foo/bar');
+        });
     });
 
     describe('#add', function() {
@@ -104,6 +108,17 @@ var Path      = require('./path');
             var p = new Path('foo/bar');
             p.makeBranch();
             expect(p.toString()).to.be.equal('foo/bar/');
+        });
+    });
+    
+    describe('#forEach', function() {
+        it('traverses all segments of the path', function() {
+            var p = Path('foo/bar/baz/');
+            var s = '';
+            var c = '';
+            p.forEach( function(seg, i) { s += seg; c += i.toString(); } );
+            expect(s).to.be.equal('foo/bar/baz/');
+            expect(c).to.be.equal('012');
         });
     });
     

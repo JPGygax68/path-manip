@@ -42,51 +42,50 @@ You can use it with or without the "new" operator. It will work pretty much as y
 
 In fact, specifying a parameter in the constructor is equivalent to building the object empty, then calling `add` with that parameter.
 
-`add` method
+- `add` method
 
-:This is the workhorse of the class. It will accept the same types for its single parameter as the constructor does, except that the parameter is not optional here.
+	This is the workhorse of the class. It will accept the same types for its single parameter as the constructor does, except that the parameter is not optional here.
 
 	There are a few special cases to consider:
 
-	- `add`ing `..` (or '../') will have the same effect as calling `up(1)`, i.e. it will pop of the last segment of the path, unless said last segment is a also a climbing segment, in which case it will add the new climbing segment. 
+	+ `add`ing `..` (or '../') will have the same effect as calling `up(1)`, i.e. it will pop of the last segment of the path, unless said last segment is a also a climbing segment, in which case it will add the new climbing segment. 
 
 		NOTE: a path ending in a climbing segment is always considered a branch.
 
-	- `add`ing a segment or path ending in a slash will make the resulting path a branch.
+	+ `add`ing a segment or path ending in a slash will make the resulting path a branch.
 
-	- `add`ing a segment *beginning* with a slash will make the path "absolute". This is only allowed on empty paths!
+	+ `add`ing a segment *beginning* with a slash will make the path "absolute". This is only allowed on empty paths!
 
-`isBranch`, `isLeaf` methods
+- `isBranch`, `isLeaf` methods
 
-:Return true when the path is a branch or a leaf, respectively. Note that these methods will always return either `true` or `false`, except if the path is empty, in which case both methods won't return anything.
+	Return true when the path is a branch or a leaf, respectively. Note that these methods will always return either `true` or `false`, except if the path is empty, in which case both methods won't return anything.
 
-`isAbsolute` method
+- `isAbsolute` method
 
 	Returns true if the first segment of the path begins with a slash.
 
 	NOTE: the notion of a path or segment being "absolute" refers to the initial slash *only*. No attempt is made to deal with Windows peculiarities. For example, constructing a path from the string `"C:\Users\Bill"` is perfectly acceptable, but will result in a path object consiting of the segments `C:/`, `Users/` and `Bill`, and the path will *not* be considered absolute (since it is missing an initial slash).
 
-`makeBranch` method
+- `makeBranch` method
 
 	Makes the current path into a branch.
 
-`up` method
+- `up` method
 
 	Equivalent to `add`ing a climbing segment (see `add`). The optional parameters specifies the number of levels to "climb" (default: 1).
 
-`length` method
+- `length` method
 
 	CAUTION: this is a *method*, not a property (unlike with arrays)! Returns the number of segments in the path.
 
-`at` method
+- `at` method
 
 	Returns the nth segment of the path in string form. That value will include the trailing slash if the segment is a branch, and the initial slash if its the first segment of an absolute path.
 
-`forEach` method
+- `forEach` method
 
 	Iteration method, working the same way as the namesake array method. The segments names passed to the callback are the same as would be obtained through `at`.
 
-`commonRoot` *static* method (call with `Path.commonRoot(path1, path2)`)
+- `commonRoot` *static* method (call with `Path.commonRoot(path1, path2)`)
 
 	This static method tries to find the common stem of two path objects. Either or both of these paths can be specified as strings.
-

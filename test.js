@@ -49,6 +49,23 @@ var Path      = require('./path');
             p.add('..');
             expect(p.toString()).to.be.equal('foo/');
         });
+        it('called with a "climb" segment on an empty path will result in a "climbing" path', function() {
+            var p = new Path();
+            p.add('..');
+            expect(p.toString()).to.be.equal('../');
+        });
+        it('called with a "climb" segment on a "climbing" path will result in a path climbing 2 levels', function() {
+            var p = new Path();
+            p.add('..').add('..');
+            expect(p.toString()).to.be.equal('../../');
+        });
+        it('can be called with a path ending in a slash, which will make the path an (empty) branch', function() {
+            var p = new Path();
+            p.add('foo/bar/');
+            expect(p.length()).to.be.equal(2);
+            expect(p.toString()).to.be.equal('foo/bar/');
+            expect(p.isBranch()).to.be.true;
+        });
         it('can be called with an array of segments', function() {
             var p = new Path('foo/bar');
             p.add(['..', 'baz']);
@@ -113,6 +130,11 @@ var Path      = require('./path');
             var p = new Path('foo/bar/baz');
             p.up(2);
             expect(p.toString()).to.be.equal('foo/');
+        });
+        it('with levels > current length of the path will result in a "climbing" path', function() {
+            var p = new Path('foo/bar');
+            p.up(3);
+            expect(p.toString()).to.be.equal('../');
         });
     });
     

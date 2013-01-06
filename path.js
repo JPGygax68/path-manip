@@ -18,11 +18,7 @@ define( function() {
         }
         else {        
             this._segments = [];
-            switch (typeof s) {
-            case 'undefined': break;
-            case 'string'   : this.add.call(this, s); break;
-            case 'object'   : fromObject.call(this, s); break;
-            }
+            if (typeof s !== 'undefined') this.add(s);
         }
         
         function fromObject(obj) {
@@ -50,8 +46,8 @@ define( function() {
         }
         else if (typeof path === 'string') {
             if (path == '..') {
-                if (this._segments.length > 0) this._segments.pop();
-                else                           this._segments.push('../');
+                if (this._segments.length > 0 && lastElement(this._segments) !== '../') this._segments.pop();
+                else                                                                    this._segments.push('../');
             }
             else {
                 path = path.replace('\\', '/');
@@ -103,7 +99,9 @@ define( function() {
     
     Path.prototype.up = function(levels) {
         levels = levels || 1;
-        if (this._segments.length >= levels) this._segments.splice(this._segments.length - levels, levels);
+        var remove = levels > this._segments.length ? this._segments.length : levels;
+        if (remove > 0) { this._segments.splice(this._segments.length - remove, levels); levels -= remove; }
+        for (var i = 0; i < levels; i ++) this.add('../');
         return this;
     }
     
@@ -128,7 +126,8 @@ define( function() {
     
     //--------------
     
-    function lastChar(s) { return s[s.length-1]; }
+    function lastElement(a) { return a[a.length-1]; }
+    function lastChar   (s) { return s[s.length-1]; }
 });
 
 }) ();

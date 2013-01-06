@@ -1,8 +1,9 @@
 {
 	"name"       : "path",
-	"version"    : "0.0.0",
+	"version"    : "0.1.0",
 	"description": "Provides a class for easy and natural handling of paths",
 	"author"     : "Jean-Pierre Gygax <gygax@practicomp.ch>",
+	"license"    : "MIT",
 	"main"       : "./path.js",
 	"keywords"   : ["path", "paths"],
 	"directories": { 

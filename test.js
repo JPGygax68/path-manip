@@ -76,6 +76,11 @@ var Path      = require('./path');
             p1.add(p2);
             expect(p1.toString()).to.be.equal('foo/bar/baz/bleep');
         });
+        it('will refuse to add an absolute segment or path to a non-empty path', function() {
+            var p = Path('foo');
+            var fn = function() { p.add('/bar'); }
+            expect(fn).to.throw(Error);
+        });
     });
     
     describe('#isBranch', function() {
@@ -143,6 +148,7 @@ var Path      = require('./path');
             var p = new Path('foo/bar');
             p.makeBranch();
             expect(p.toString()).to.be.equal('foo/bar/');
+            expect(p.isBranch()).to.be.true;
         });
     });
     

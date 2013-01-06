@@ -109,7 +109,7 @@ define( function() {
     
     Path.prototype.at = function(i) { return this._segments[i]; }
     
-    Path.prototype.forEach = function(callback) { this._segments.forEach(callback, this); }
+    Path.prototype.forEach = function(callback, this_) { this._segments.forEach(callback, this_ ? this_ : this); }
     
     Path.commonRoot = function(p1, p2) {
         if (typeof p1 === 'string') p1 = new Path(p1);

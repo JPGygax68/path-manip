@@ -90,4 +90,3 @@ There are a few special cases to consider:
 
 	This static method tries to find the common stem of two path objects. Either or both of these paths can be specified as strings.
 
-

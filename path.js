@@ -59,9 +59,15 @@ define( function() {
     }
     
     Path.prototype.isBranch = function() { 
-        if (this._segments.length === 0) return false;
+        if (this._segments.length === 0) return;
         var last_seg = this._segments[this._segments.length-1];
-        return last_seg[last_seg.length-1] === '/';
+        return lastChar(last_seg) === '/';
+    }
+    
+    Path.prototype.isLeaf = function() {
+        if (this._segments.length === 0) return;
+        var last_seg = this._segments[this._segments.length-1];
+        return lastChar(last_seg) !== '/';
     }
     
     Path.prototype.makeBranch = function() {

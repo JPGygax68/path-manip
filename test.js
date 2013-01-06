@@ -63,6 +63,27 @@ var Path      = require('./path');
             p.add('..');
             expect(p.isBranch()).to.be.true;
         });
+        it('returns "undefined" for an empty path', function() {
+            var p = new Path();
+            expect(p.isBranch()).to.be.equal(undefined);
+        });
+    });
+    
+    describe('#isLeaf', function() {
+        it('is true after adding a standard segment', function() {
+            var p = new Path();
+            p.add('foo');
+            expect(p.isLeaf()).to.be.true;
+        });
+        it('is true after adding a composite segment ending in a non-branch (= string containing slashes)', function() {
+            var p = new Path();
+            p.add('foo/bar');
+            expect(p.isLeaf()).to.be.true;
+        });
+        it('returns "undefined" for an empty path', function() {
+            var p = new Path();
+            expect(p.isLeaf()).to.be.equal(undefined);
+        });
     });
     
     describe('#up', function() {

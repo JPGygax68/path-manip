@@ -23,6 +23,15 @@ var Path      = require('./path');
             var p = new Path(s);
             expect(p == s).to.be.ok;
         });
+        it('backslashes are converted to forward slashes', function() {
+            var s = 'foo\\bar';
+            var p = new Path(s);
+            expect(p == 'foo/bar').to.be.ok;
+        });
+        it('can be called with an array of path segments', function() {
+            var p = new Path(['foo', 'bar']);
+            expect(p == 'foo/bar').to.be.ok;
+        });
     });
 
 //});

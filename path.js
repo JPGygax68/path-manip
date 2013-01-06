@@ -11,7 +11,7 @@ if (typeof define !== 'function') var define = function() {
 define( function() {
 
     function Path(s) {
-        this.segments = [];
+        this._segments = [];
         switch (typeof s) {
         case 'undefined': break;
         case 'string'   : this.add.call(this, s); break;
@@ -24,10 +24,8 @@ define( function() {
         }
     }
     
-    Path.prototype = new Array();
-    
     Path.prototype.toString = function() { 
-        return this.segments.join(''); 
+        return this._segments.join(''); 
     }
     
     Path.prototype.add = function(path) {
@@ -42,8 +40,8 @@ define( function() {
         }
         else if (typeof path === 'string') {
             if (path == '..') {
-                if (this.segments.length > 0) this.segments.pop();
-                else                          this.segments.push( '../' );
+                if (this._segments.length > 0) this._segments.pop();
+                else                          this._segments.push( '../' );
             }
             else {
                 var segs = path.replace('\\', '/').split('/');
@@ -52,7 +50,7 @@ define( function() {
                 }
                 else  {
                     this.makeBranch();
-                    this.segments.push(path);
+                    this._segments.push(path);
                 }
             }
         }
@@ -61,22 +59,35 @@ define( function() {
     }
     
     Path.prototype.isBranch = function() { 
-        if (this.segments.length === 0) return false;
-        var last_seg = this.segments[this.segments.length-1];
+        if (this._segments.length === 0) return false;
+        var last_seg = this._segments[this._segments.length-1];
         return last_seg[last_seg.length-1] === '/';
     }
     
     Path.prototype.makeBranch = function() {
-        if (this.segments.length > 0) {
-            var i = this.segments.length - 1;
-            if (lastChar(this.segments[i]) !== '/') this.segments[i] += '/';
+        if (this._segments.length > 0) {
+            var i = this._segments.length - 1;
+            if (lastChar(this._segments[i]) !== '/') this._segments[i] += '/';
         }
     }
     
     Path.prototype.up = function(levels) {
         levels = levels || 1;
-        if (this.segments.length >= levels) this.segments.splice(this.segments.length - levels, levels);
+        if (this._segments.length >= levels) this._segments.splice(this._segments.length - levels, levels);
         return this;
+    }
+    
+    Path.prototype.length = function() { return this._segments.length; }
+    
+    Path.prototype.at = function(i) { return this._segments[i]; }
+    
+    Path.commonRoot = function(p1, p2) {
+        var root = new Path();
+        for (var i = 0; i < p1._segments.length && i < p2._segments.length; i++) {
+            if (p1.at(i) !== p2.at(i)) break;
+            root.add( p1.at(i) );
+        }
+        return root;
     }
     
     return Path;

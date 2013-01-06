@@ -117,18 +117,21 @@ var Path      = require('./path');
         });
     });
     
-    describe('#commonRoot', function() {
-        it('(static method) produces a path containing the common root of two paths', function() {
+    describe('#commonRoot (static method)', function() {
+        it('produces a path containing the common root of two paths', function() {
             var p1 = new Path('foo/bar'), p2 = new Path('foo/baz');
             expect(Path.commonRoot(p1, p2).toString()).to.be.equal('foo/');
+        });
+        it('accepts a string for either parameter, or both', function() {
+            expect(Path.commonRoot('foo/bar/baz', 'foo/bar/bleep/burp').toString()).to.be.equal('foo/bar/');
         });
     });
     
     describe('chaining:', function() {
-        it('actions can be chained (add, up)', function() {
+        it('actions can be chained (add, up, makeBranch)', function() {
             var p = new Path('foo');
-            p.add('bar').up().add('baz');
-            expect(p.toString()).to.be.equal('foo/baz');
+            p.add('bar').up().add('baz').add('beep').makeBranch();
+            expect(p.toString()).to.be.equal('foo/baz/beep/');
         });
     });
     

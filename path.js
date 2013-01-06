@@ -88,6 +88,8 @@ define( function() {
     Path.prototype.at = function(i) { return this._segments[i]; }
     
     Path.commonRoot = function(p1, p2) {
+        if (typeof p1 === 'string') p1 = new Path(p1);
+        if (typeof p2 === 'string') p2 = new Path(p2);
         var root = new Path();
         for (var i = 0; i < p1._segments.length && i < p2._segments.length; i++) {
             if (p1.at(i) !== p2.at(i)) break;

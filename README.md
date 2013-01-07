@@ -31,6 +31,14 @@ and for the browser (or any other AMD environment):
 (Of course with AMD, it could be either `require` or `define`.)
 
 
+A few initial comments
+----------------------
+
+`Path` is derived from `Array`, so it inherits all of its methods. In particular, this means that the `length` property can be used to obtain the number of segments composing the path, that individual segments can be access through the index operator `[i]`, and that the `forEach()` method can be used to iterate over segments. 
+
+While the above examples can be used safely, it is not generally a very good idea to use Array methods such as `shift()`, `unshift()`, `push()` and `pop()` to manipulate paths, as these methods will not be aware that they are working on path segments and fail to handle special cases correctly.
+
+
 Usage
 -----
 
@@ -78,21 +86,6 @@ Usage
 
 	Equivalent to `add`ing a climbing segment (see `add`). The optional parameters specifies the number of levels to "climb" (default: 1).
 
-- `length` method
-
-	CAUTION: this is a *method*, not a property (unlike with arrays)! Returns the number of segments in the path.
-
-	
-- `at` method
-
-	Returns the nth segment of the path in string form. That value will include the trailing slash if the segment is a branch, and the initial slash if its the first segment of an absolute path.
-
-	
-- `forEach` method
-
-	Iteration method, working the same way as the namesake array method. The segments names passed to the callback are the same as would be obtained through `at`.
-
-	
 - `commonRoot` *static* method (call with `Path.commonRoot(path1, path2)`)
 
 	This static method tries to find the common stem of two path objects. Either or both of these paths can be specified as strings.

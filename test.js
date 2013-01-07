@@ -62,7 +62,7 @@ var Path      = require('./path');
         it('can be called with a path ending in a slash, which will make the path an (empty) branch', function() {
             var p = new Path();
             p.add('foo/bar/');
-            expect(p.length()).to.be.equal(2);
+            expect(p.length).to.be.equal(2);
             expect(p.toString()).to.be.equal('foo/bar/');
             expect(p.isBranch()).to.be.true;
         });
@@ -160,16 +160,6 @@ var Path      = require('./path');
             p.forEach( function(seg, i) { s += seg; c += i.toString(); } );
             expect(s).to.be.equal('foo/bar/baz/');
             expect(c).to.be.equal('012');
-        });
-    });
-    
-    describe('#length', function() {
-        it('returns the number of segments in the path', function() {
-            var p = new Path('foo/bar');
-            p.add('../baz');
-            expect(p.length()).to.be.equal(2);
-            p.add(['beep', 'burp']);
-            expect(p.length()).to.be.equal(4);
         });
     });
     

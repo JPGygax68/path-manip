@@ -17,7 +17,6 @@ define( function() {
             return instance;
         }
         else {        
-            this._segments = [];
             if (typeof s !== 'undefined') this.add(s);
         }
         
@@ -27,15 +26,15 @@ define( function() {
         }
     }
     
+    Path.prototype = new Array();
+    Path.prototype.constructor = Path;
+    
     Path.prototype.toString = function() { 
-        return this._segments.join(''); 
+        return this.join(''); 
     }
     
     Path.prototype.add = function(path) {
-        if (path instanceof Path) {
-            this.add( path._segments );
-        }
-        else if (path instanceof Array) {
+        if (path instanceof Array) {
             path.forEach( function(seg, i) { 
                 if (seg === '') {
                     if (i === path.length-1) this.makeBranch();
@@ -46,15 +45,15 @@ define( function() {
         }
         else if (typeof path === 'string') {
             if (path == '..') {
-                if (this._segments.length > 0 && lastElement(this._segments) !== '../') this._segments.pop();
-                else                                                                    this._segments.push('../');
+                if (this.length > 0 && lastElement(this) !== '../') this.pop();
+                else                                                this.push('../');
             }
             else {
                 path = path.replace('\\', '/');
                 if (path[0] === '/') {
-                    if (this._segments.length > 0) throw new Error('Path::add(): trying to add absolute path to non-empty path');
+                    if (this.length > 0) throw new Error('Path::add(): trying to add absolute path to non-empty path');
                     var segs = path.slice(1).split('/');
-                    this._segments.push('/' + segs[0]);
+                    this.push('/' + segs[0]);
                     if (segs.length > 0) { segs.shift(); this.add(segs); }
                 }
                 else {
@@ -64,7 +63,7 @@ define( function() {
                     }
                     else  {
                         this.makeBranch();
-                        this._segments.push(path);
+                        this.push(path);
                     }
                 }
             }
@@ -74,48 +73,46 @@ define( function() {
     }
     
     Path.prototype.isBranch = function() { 
-        if (this._segments.length === 0) return;
-        var last_seg = this._segments[this._segments.length-1];
+        if (this.length === 0) return;
+        var last_seg = this[this.length-1];
         return lastChar(last_seg) === '/';
     }
     
     Path.prototype.isLeaf = function() {
-        if (this._segments.length === 0) return;
-        var last_seg = this._segments[this._segments.length-1];
+        if (this.length === 0) return;
+        var last_seg = this[this.length-1];
         return lastChar(last_seg) !== '/';
     }
 
     Path.prototype.isAbsolute = function() {
-        if (this._segments.length === 0) return;
-        return this._segments[0][0] === '/';
+        if (this.length === 0) return;
+        return this[0][0] === '/';
     }
     
     Path.prototype.makeBranch = function() {
-        if (this._segments.length > 0) {
-            var i = this._segments.length - 1;
-            if (lastChar(this._segments[i]) !== '/') this._segments[i] += '/';
+        if (this.length > 0) {
+            var i = this.length - 1;
+            if (lastChar(this[i]) !== '/') this[i] += '/';
         }
     }
     
     Path.prototype.up = function(levels) {
         levels = levels || 1;
-        var remove = levels > this._segments.length ? this._segments.length : levels;
-        if (remove > 0) { this._segments.splice(this._segments.length - remove, levels); levels -= remove; }
+        var remove = levels > this.length ? this.length : levels;
+        if (remove > 0) { this.splice(this.length - remove, levels); levels -= remove; }
         for (var i = 0; i < levels; i ++) this.add('../');
         return this;
     }
     
-    Path.prototype.length = function() { return this._segments.length; }
+    //Path.prototype.length = function() { return this.length; }
     
-    Path.prototype.at = function(i) { return this._segments[i]; }
-    
-    Path.prototype.forEach = function(callback, this_) { this._segments.forEach(callback, this_ ? this_ : this); }
+    Path.prototype.at = function(i) { return this[i]; }
     
     Path.commonRoot = function(p1, p2) {
         if (typeof p1 === 'string') p1 = new Path(p1);
         if (typeof p2 === 'string') p2 = new Path(p2);
         var root = new Path();
-        for (var i = 0; i < p1._segments.length && i < p2._segments.length; i++) {
+        for (var i = 0; i < p1.length && i < p2.length; i++) {
             if (p1.at(i) !== p2.at(i)) break;
             root.add( p1.at(i) );
         }

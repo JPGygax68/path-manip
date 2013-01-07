@@ -152,17 +152,6 @@ var Path      = require('./path');
         });
     });
     
-    describe('#forEach', function() {
-        it('traverses all segments of the path', function() {
-            var p = Path('foo/bar/baz/');
-            var s = '';
-            var c = '';
-            p.forEach( function(seg, i) { s += seg; c += i.toString(); } );
-            expect(s).to.be.equal('foo/bar/baz/');
-            expect(c).to.be.equal('012');
-        });
-    });
-    
     describe('#commonRoot (static method)', function() {
         it('produces a path containing the common root of two paths', function() {
             var p1 = new Path('foo/bar'), p2 = new Path('foo/baz');

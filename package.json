@@ -1,7 +1,7 @@
 {
-	"name"       : "path.js",
-	"version"    : "0.2.0",
-	"description": "Provides a class for easy and natural handling of paths",
+	"name"       : "path-manip",
+	"version"    : "0.2.1",
+	"description": "Provides a small class for easy and natural handling of paths",
 	"author"     : "Jean-Pierre Gygax <gygax@practicomp.ch>",
 	"license"    : "MIT",
 	"main"       : "./path.js",
@@ -12,8 +12,8 @@
 	"scripts"    : {
 		"test": "test.js"
 	},
-	devDependencies: {
+	"devDependencies": {
 	  "chai": "*",
 	  "mocha": "*"
-	}	
+	}
 }

@@ -1,17 +1,8 @@
-//var should    = require('chai').should();
 var expect    = require('chai').expect;
 var requirejs = require('requirejs');
-var Path      = require('./path');
+var Path      = require('./'); // load our own package's entry point
 
-/* requirejs.config({
-    //Pass the top-level main.js/index.js require
-    //function to requirejs so that node modules
-    //are loaded relative to the top-level JS file.
-    nodeRequire: require
-}); */
-
-//requirejs(['./path'],
-//function (    Path  ) {
+if (1) { // TODO: wrap this so it will work in an asynchronous (browser) environment
 
     describe('#constructor', function() {
         it('called without params results in Path convertible to empty string', function() {
@@ -181,5 +172,5 @@ var Path      = require('./path');
         });
     });
     
-//});
+}
 

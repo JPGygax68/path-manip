@@ -18,13 +18,13 @@ Here's a list of the things it is *NOT*:
 Importing the package
 ---------------------
 
-Path.js supports both the CommonJS (synchronous) and the AMD (asynchronous) forms of importing. So, for Node:
+This package supports both the CommonJS (synchronous) and the AMD (asynchronous) forms of importing. So, for Node:
 
-	var Path = require('path');
+	var Path = require('path-manip');
    
 and for the browser (or any other AMD environment):
 
-	require(['path'], function(Path) {
+	require(['path-manip'], function(Path) {
 		...
 	});
 	

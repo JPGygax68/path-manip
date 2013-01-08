@@ -42,4 +42,4 @@ While the above examples can be used safely, it is not generally a very good ide
 Reference
 ---------
 
-No written reference is provided, but if you need one, you can obtain one quickly and easily by installing and running yuidoc: (`npm install -g yuidoc`, then `yuidoc .` - done, you can now access the docs by loading the file `./out/index.html` into your browser).
+No reference is provided here. I suggest you just quickly glance over the source, which is quite short and where every method is properly commented. But if you prefer to get your information from a nicely formatted document, you can obtain one quickly and easily by installing and running yuidoc: (`npm install -g yuidoc`, then `yuidoc .` - done, you can now access the docs by loading the file `./out/index.html` into your browser).

@@ -144,11 +144,22 @@ var Path      = require('./path');
     });
     
     describe('#makeBranch', function() {
-        it('makes the leaf at the end of path into a branch', function() {
+        it('makes the segment at the end of path into a branch', function() {
             var p = new Path('foo/bar');
             p.makeBranch();
             expect(p.toString()).to.be.equal('foo/bar/');
             expect(p.isBranch()).to.be.true;
+        });
+    });
+    
+    describe('#makeLeaf', function() {
+        it('makes the segment at the end of path into a leaf', function() {
+            var p = new Path('foo/bar/baz');
+            p.up();
+            expect(p.isBranch()).to.be.true;
+            p.makeLeaf();
+            expect(p.toString()).to.be.equal('foo/bar');
+            expect(p.isLeaf()).to.be.true;
         });
     });
     
@@ -165,8 +176,8 @@ var Path      = require('./path');
     describe('chaining:', function() {
         it('actions can be chained (add, up, makeBranch)', function() {
             var p = new Path('foo');
-            p.add('bar').up().add('baz').add('beep').makeBranch();
-            expect(p.toString()).to.be.equal('foo/baz/beep/');
+            p.add('bar').up().add('baz').add('beep').makeBranch().up().add('burp').makeLeaf();
+            expect(p.toString()).to.be.equal('foo/baz/burp');
         });
     });
     

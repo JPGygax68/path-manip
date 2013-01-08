@@ -149,11 +149,25 @@ define( function() {
             var i = this.length - 1;
             if (lastChar(this[i]) !== '/') this[i] += '/';
         }
+        return this;
+    }
+    
+/**
+        Makes the path into a leaf (if it wasn't already).
+        @method makeLeaf
+        @return this    Returns the Path object it was called on, providing for chaining.
+     */
+    Path.prototype.makeLeaf = function() {
+        if (this.length > 0) {
+            var i = this.length - 1;
+            if (lastChar(this[i]) === '/') this[i] = this[i].slice(0, this[i].length-1);
+        }
+        return this;
     }
     
     /**
-        Removes the last segment of the path, or adds a "climbing" segment ("..") if 
-        the path was empty or already ending in a climbing segment.
+        Removes one or more segments from the end of the path, or / and adds "climbing" segments ("..") 
+        to it if/when the path empty or already ending in a climbing segment.
         @method up
         @param {Integer} [levels]     Number of levels to "climb" (default: 1)
         @return this    Returns the Path object it was called on, providing for chaining.

@@ -1,6 +1,11 @@
 Path-manip: a simple but convenient library for path manipulation
 =================================================================
 
+First off: BIG THANKS!
+----------------------
+
+To the makers of Mocha and Chai. I've loved TDD (test-driven development) since first I tried it, but I didn't imagine it could be *this* sweet. So, major kudos to you guys!
+
 What is is
 ----------
 

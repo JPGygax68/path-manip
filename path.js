@@ -167,11 +167,12 @@ define( function() {
     
     /**
         Checks whether this path begins with the specified one.
-        Note that this method will ignore whether the last common segments are branches or leaves: 'foo/bar' 
-        is deemed to begin with 'foo/bar/', and 'foo/bar/baz' is seen as beginning with 'foo/bar'.
-        However, the initial slash of an absolute path is *not* ignored in this check.
+        Note that this method expressely ignores "leafiness": for example, `Path('foo/bar').beginsWith('foo/bar/')`
+        will return true, as will `Path('foo/bar/baz').beginsWith('foo/bar')`.
+        On the other hand, this method does *not* ignore initial slashes of absolute paths.
+        @method beginsWith
         @param {Path|string|Array} path     Path to check against.
-        @return {boolean}
+        @return {boolean}   Result of check.
      */
     Path.prototype.beginsWith = function(path) {
         if (! (path instanceof Path)) var path = new Path(path);
@@ -223,7 +224,7 @@ define( function() {
     
     /**
         Composes a path from the specified components.
-        @method commonRoot
+        @method compose
         @static
         @return {Path} path       Path assembled from the passed components.
      */

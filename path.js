@@ -152,7 +152,7 @@ define( function() {
         return this;
     }
     
-/**
+    /**
         Makes the path into a leaf (if it wasn't already).
         @method makeLeaf
         @return this    Returns the Path object it was called on, providing for chaining.
@@ -163,6 +163,27 @@ define( function() {
             if (lastChar(this[i]) === '/') this[i] = this[i].slice(0, this[i].length-1);
         }
         return this;
+    }
+    
+    /**
+        Checks whether this path begins with the specified one.
+        Note that this method will ignore whether the last common segments are branches or leaves: 'foo/bar' 
+        is deemed to begin with 'foo/bar/', and 'foo/bar/baz' is seen as beginning with 'foo/bar'.
+        However, the initial slash of an absolute path is *not* ignored in this check.
+        @param {Path|string|Array} path     Path to check against.
+        @return {boolean}
+     */
+    Path.prototype.beginsWith = function(path) {
+        if (! (path instanceof Path)) var path = new Path(path);
+        if (path.length > this.length) return false;
+        for (var i = 0; i < path.length; i ++) if (!equal(path[i], this[i], i === path.length-1)) return false;
+        return true;
+        
+        function equal(seg1, seg2, ignore_slash) {
+            if (ignore_slash) seg1 = chopSlash(seg1), seg2 = chopSlash(seg2);
+            return seg1 === seg2;
+            function chopSlash(s) { return lastChar(s) === '/' ? s.slice(0, s.length - 1) : s; }
+        }        
     }
     
     /**
@@ -198,6 +219,18 @@ define( function() {
             root.add( p1[i] );
         }
         return root;
+    }
+    
+    /**
+        Composes a path from the specified components.
+        @method commonRoot
+        @static
+        @return {Path} path       Path assembled from the passed components.
+     */
+    Path.compose = function(args) {
+        var path = new Path();
+        for (var i = 0; i < arguments.length; i ++) path.add( Path(arguments[i]) );
+        return path;
     }
     
     return Path;

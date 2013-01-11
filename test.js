@@ -154,6 +154,17 @@ if (1) { // TODO: wrap this so it will work in an asynchronous (browser) environ
         });
     });
     
+    describe('#beginsWith', function() {
+        it('detects whether the path begins with the specified one', function() {
+            var p = new Path('foo/bar/baz/burp');
+            expect(p.beginsWith('foo/bar')).to.be.true;
+            expect(p.beginsWith('foo/bar/')).to.be.true;
+            expect(p.beginsWith(new Path('foo/bar'))).to.be.true;
+            expect(p.beginsWith(['foo', 'bar'])).to.be.true;
+            expect(p.beginsWith(['foo', 'bar/'])).to.be.true;
+        });
+    });
+    
     describe('#commonRoot (static method)', function() {
         it('produces a path containing the common root of two paths', function() {
             var p1 = new Path('foo/bar'), p2 = new Path('foo/baz');
@@ -161,6 +172,13 @@ if (1) { // TODO: wrap this so it will work in an asynchronous (browser) environ
         });
         it('accepts a string for either parameter, or both', function() {
             expect(Path.commonRoot('foo/bar/baz', 'foo/bar/bleep/burp').toString()).to.be.equal('foo/bar/');
+        });
+    });
+    
+    describe('#compose (static method)', function() {
+        it('produces a new path consisting of all passed elements', function() {
+            var p = Path.compose('/foo', ['bar/baz'], new Path('burp'));
+            expect(p.toString()).to.be.equal('/foo/bar/baz/burp');
         });
     });
     
